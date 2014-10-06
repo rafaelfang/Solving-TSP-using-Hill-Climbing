@@ -38,21 +38,31 @@ candidateNum=3;
 
 num_evaluations=1;
 minCostArray=zeros(max_evaluations,1);
+outputArr=zeros(max_evaluations,2);
 while (num_evaluations<max_evaluations+1)
     
    
     candidate=zeros(size(s,1),size(s,2),candidateNum);
     candidateCost=zeros(1,candidateNum);
+    candidateStartPos=zeros(1,candidateNum);
+    candidateStringLength=zeros(1,candidateNum);
     for t=1:candidateNum
-        candidate(:,:,t)=getNextState(s,totalCityNum);
+        [candidate(:,:,t),candidateStartPos(1,t),candidateStringLength(1,t)]=getNextState(s,totalCityNum);
         candidateCost(1,t)=cost(candidate(:,:,t),D);
     end
     [minVal,minIndex]=min(candidateCost);
-    
+    minCandidateStartPos=candidateStartPos(1,minIndex);
+    minCandidateStringLength=candidateStringLength(1,minIndex);
     if minVal<cost(s,D)
         s=candidate(:,:,minIndex);
+        minCostArray(num_evaluations,1)=minVal;
+        outputArr(num_evaluations,1)=minCandidateStartPos;
+        outputArr(num_evaluations,2)=minCandidateStringLength;
+    else 
+        minCostArray(num_evaluations,1)=minCostArray(num_evaluations-1,1);
+        outputArr(num_evaluations,1)=outputArr(num_evaluations-1,1);
+        outputArr(num_evaluations,2)=outputArr(num_evaluations-1,2);
     end
-    minCostArray(num_evaluations,1)=minVal;
     num_evaluations=num_evaluations+1;
     %disp(s)
 end

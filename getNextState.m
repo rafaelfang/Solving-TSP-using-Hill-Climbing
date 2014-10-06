@@ -1,4 +1,4 @@
-function [ s_next ] = getNextState( s,totalCityNum )
+function [ s_next,start,k ] = getNextState( s,totalCityNum )
 %random get the next state
 %written by Chao Fang
     %get random city swap length, should exclude begining city
@@ -9,9 +9,9 @@ function [ s_next ] = getNextState( s,totalCityNum )
     reversePart=flipud([start:start+k-1]');
     index(start:start+k-1)=reversePart;
     s_next=s(index,:);
-    disp([start,k])
+    %disp([start,k])
     
-    disp('============================')
+    %disp('============================')
 %     k=randi(totalCityNum-1);
 % first=1+randi(size(s,1)-2-k+1,1,1);
 % second=first+k-1;
