@@ -5,13 +5,13 @@ clc
 %this is the runner function of travelling salesman problem using random hill
 %climbing
 %written by Chao Fang
-%rng(1);
+rng(1);
 %initalily select swap city string length to be seven
 
 
 %choice==1-fifteen cities
 %choice==2-fifty seven cities
-[coords,D,totalCityNum]=prepareDataSet(2);
+[coords,D,totalCityNum]=prepareDataSet(1);
 cityID=1:size(coords,1);
 
 %start with any tour, e.g in input order
