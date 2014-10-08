@@ -1,17 +1,18 @@
-close all
-clear all
-clc
-
+% clear
+% clc
+% close all
+function [ minVal ] = travellingSalesmanRunner( indRand )
 %this is the runner function of travelling salesman problem using random hill
 %climbing
 %written by Chao Fang
-%rng(1);
+rng(indRand);
+% rng(1);
 %initalily select swap city string length to be seven
 
 
 %choice==1-fifteen cities
 %choice==2-fifty seven cities
-[coords,D,totalCityNum]=prepareDataSet(2);
+[coords,D,totalCityNum]=prepareDataSet(1);
 cityID=1:size(coords,1);
 
 %start with any tour, e.g in input order
@@ -38,7 +39,7 @@ candidateNum=3;
 
 num_evaluations=1;
 minCostArray=zeros(max_evaluations,1);
-outputArr=zeros(max_evaluations,2);
+outputArr=zeros(max_evaluations,1);
 while (num_evaluations<max_evaluations+1)
     
    
@@ -55,16 +56,14 @@ while (num_evaluations<max_evaluations+1)
     minCandidateStringLength=candidateStringLength(1,minIndex);
     if minVal<cost(s,D)
         s=candidate(:,:,minIndex);
-        minCostArray(num_evaluations,1)=minVal;
-        outputArr(num_evaluations,1)=minCandidateStartPos;
-        outputArr(num_evaluations,2)=minCandidateStringLength;
-    else 
-        minCostArray(num_evaluations,1)=minCostArray(num_evaluations-1,1);
-        outputArr(num_evaluations,1)=outputArr(num_evaluations-1,1);
-        outputArr(num_evaluations,2)=outputArr(num_evaluations-1,2);
     end
+    minCostArray(num_evaluations,1)=minVal;
+    outputArr(num_evaluations,1)=minCandidateStartPos;
+    outputArr(num_evaluations,2)=minCandidateStringLength;
     num_evaluations=num_evaluations+1;
-    %disp(s)
+%     disp (strcat('=====states======',int2str(num_evaluations)))
+%     disp(s)
+%     disp('================')
 end
 
 % while (num_evaluations<max_evaluations+1)
@@ -87,6 +86,9 @@ ylabel('Cost value')
 % disp(s)
 subplot(2,2,3);
 plot(s(:,2),s(:,3));
-title('final routine')
+title(strcat('final routine with final cost:',int2str(min(minCostArray))));
 xlabel('x-axis')
 ylabel('y-axis')
+
+
+end
